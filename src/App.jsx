@@ -1,10 +1,40 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { getProducts } from './services/product.service'
+import { Table } from 'antd';
+import 'antd/dist/reset.css'; 
 
 function App() {
   const [count, setCount] = useState(0)
+  const [products, setProducts] = useState([]);
+
+const columns = [
+  {
+    title: 'Id',
+    dataIndex: 'id',
+    key: 'id',
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
+  },
+];
+
+  useEffect(() => {
+    getProducts()
+    .then(data => {
+      setProducts(data);
+    })
+    .catch(err => console.error(err));
+  }, []);
 
   return (
     <>
@@ -28,6 +58,9 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <div>
+        <Table dataSource={products} columns={columns} rowKey="id"/>;
+      </div>
     </>
   )
 }
