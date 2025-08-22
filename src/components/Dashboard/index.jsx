@@ -14,12 +14,11 @@ function App() {
   const [activity, setActivity] = useState([]);
 
   useEffect(() => {
-
+//database abal abal biar work aja kak
     axios
       .get('http://127.0.0.1:3000/stats')
       .then((response) => setStats(response.data))
       .catch((error) => console.log('Gagal ambil stats:', error));
-
 
     axios
       .get('http://127.0.0.1:3000/activity')
