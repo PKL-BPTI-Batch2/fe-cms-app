@@ -31,7 +31,6 @@ const drawerWidth = 240;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme }) => ({
     flexGrow: 1,
-    padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -84,12 +83,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const menuItems = [
-  {path: "", label: "Dashboard", icon: <HomeIcon sx={{color:'#fff'}}/>},
-  {path: "", label: "News", icon:<ArticleIcon sx={{color:'#fff'}}/> },
-  {path: "", label: "Pages", icon: <LayersIcon sx={{color:'#fff'}}/>},
-  {path: "", label: "Menus", icon: <MenuBookIcon sx={{color:'#fff'}}/>},
-  {path: "", label: "Media Library", icon: <PermMediaIcon sx={{color:'#fff'}}/>},
-  {path: "", label: "Users", icon: <PeopleIcon sx={{color:'#fff'}}/>},
+  {path: "/", label: "Dashboard", icon: <HomeIcon sx={{color:'#fff'}}/>},
+  {path: "/news", label: "News", icon:<ArticleIcon sx={{color:'#fff'}}/> },
+  {path: "/pages", label: "Pages", icon: <LayersIcon sx={{color:'#fff'}}/>},
+  {path: "/menus", label: "Menus", icon: <MenuBookIcon sx={{color:'#fff'}}/>},
+  {path: "/media-library", label: "Media Library", icon: <PermMediaIcon sx={{color:'#fff'}}/>},
+  {path: "/users", label: "Users", icon: <PeopleIcon sx={{color:'#fff'}}/>},
 ]
 
 export default function Frame({children}) {
