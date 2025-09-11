@@ -74,7 +74,6 @@ export default function MenuPage() {
 
   return (
     <Box p={3}>
-      {/* Tombol tambah menu */}
       <Stack
         direction="row"
         justifyContent="flex-end"
@@ -86,7 +85,6 @@ export default function MenuPage() {
         </Button>
       </Stack>
 
-      {/* List menu */}
       <Stack spacing={2}>
         {menus.map((menu) => (
           <Card key={menu.id} variant="outlined">
@@ -94,11 +92,9 @@ export default function MenuPage() {
               sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
             >
               <Box>
-                {/* Title */}
                 <Typography variant="subtitle1" fontWeight="bold">
                   {menu.name}
                 </Typography>
-                {/* Subtitle */}
                 <Typography variant="body2" color="text.secondary">
                   {menu.path}
                 </Typography>
@@ -120,7 +116,6 @@ export default function MenuPage() {
         ))}
       </Stack>
 
-      {/* Dialog Tambah/Edit */}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{editingMenu ? "Edit Menu" : "New Menu"}</DialogTitle>
         <DialogContent>
