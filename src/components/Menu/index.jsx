@@ -20,7 +20,11 @@ export default function MenuPage() {
   const [menus, setMenus] = useState([]);
   const [open, setOpen] = useState(false);
   const [editingMenu, setEditingMenu] = useState(null);
-  const [formData, setFormData] = useState({ title: "", items: "" });
+
+  const [formData, setFormData] = useState({
+    name: "",
+    path: ""
+  });
 
   useEffect(() => {
     loadMenus();
@@ -35,12 +39,12 @@ export default function MenuPage() {
     if (menu) {
       setEditingMenu(menu);
       setFormData({
-        title: menu.title,
-        items: menu.items.join(", "),
+        name: menu.name || "",
+        path: menu.path || ""
       });
     } else {
       setEditingMenu(null);
-      setFormData({ title: "", items: "" });
+      setFormData({ name: "", path: "" });
     }
     setOpen(true);
   };
@@ -49,8 +53,8 @@ export default function MenuPage() {
 
   const handleSave = async () => {
     const newData = {
-      title: formData.title,
-      items: formData.items.split(",").map((i) => i.trim()),
+      name: formData.name,
+      path: formData.path
     };
 
     if (editingMenu) {
@@ -70,31 +74,36 @@ export default function MenuPage() {
 
   return (
     <Box p={3}>
+      {/* Tombol tambah menu */}
       <Stack
         direction="row"
-        justifyContent="Flex-end"
+        justifyContent="flex-end"
         alignItems="center"
         mb={3}
       >
-        <Button variant="contained"  color="primary" onClick={() => handleOpen()}>
+        <Button variant="contained" color="primary" onClick={() => handleOpen()}>
           + New Menu
         </Button>
       </Stack>
 
+      {/* List menu */}
       <Stack spacing={2}>
         {menus.map((menu) => (
           <Card key={menu.id} variant="outlined">
             <CardContent
-              sx={{ display: "flex", justifyContent: "space-between" }}
+              sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
             >
               <Box>
+                {/* Title */}
                 <Typography variant="subtitle1" fontWeight="bold">
-                  {menu.title}
+                  {menu.name}
                 </Typography>
+                {/* Subtitle */}
                 <Typography variant="body2" color="text.secondary">
-                  Items: {menu.items.join(", ")}
+                  {menu.path}
                 </Typography>
               </Box>
+
               <Box>
                 <IconButton color="primary" onClick={() => handleOpen(menu)}>
                   <Edit />
@@ -111,22 +120,23 @@ export default function MenuPage() {
         ))}
       </Stack>
 
+      {/* Dialog Tambah/Edit */}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{editingMenu ? "Edit Menu" : "New Menu"}</DialogTitle>
         <DialogContent>
           <TextField
             fullWidth
-            label="Menu Title"
+            label="Name"
             margin="normal"
-            value={formData.title}
-            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
           />
           <TextField
             fullWidth
-            label="Menu Items (pisahkan dengan koma)"
+            label="Path"
             margin="normal"
-            value={formData.items}
-            onChange={(e) => setFormData({ ...formData, items: e.target.value })}
+            value={formData.path}
+            onChange={(e) => setFormData({ ...formData, path: e.target.value })}
           />
         </DialogContent>
         <DialogActions>
