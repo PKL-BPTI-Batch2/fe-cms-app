@@ -24,6 +24,7 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import { Link, useLocation } from 'react-router-dom';
 import { Avatar, Menu,MenuItem, Tooltip } from '@mui/material';
 import { Logout,   Settings } from '@mui/icons-material';
+import {logout} from '../../services/auth';
 
 
 const drawerWidth = 240;
@@ -95,7 +96,11 @@ export default function Frame({children}) {
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
 
-  const handleLabel = menuItems.find((item) => item.path === location.pathname)
+  const handleLabel = menuItems.find((item) => item.path === location.pathname);
+
+  const handleLogout = () => {
+    logout();
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const profile = Boolean(anchorEl);
@@ -204,7 +209,7 @@ export default function Frame({children}) {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleCloseProfile}>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
