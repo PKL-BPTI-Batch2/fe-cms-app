@@ -12,20 +12,18 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  Chip,
+  Divider,
 } from "@mui/material";
-import { Edit, Delete } from "@mui/icons-material";
+import { Edit, Delete, List } from "@mui/icons-material";
 import { getMenus, addMenu, updateMenu, deleteMenu } from "../../services/crudmenu.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function MenuPage() {
   const [menus, setMenus] = useState([]);
   const [open, setOpen] = useState(false);
   const [editingMenu, setEditingMenu] = useState(null);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    created_by: 1
-  });
+  const [formData, setFormData] = useState({ name: "" });
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadMenus();
@@ -43,13 +41,10 @@ export default function MenuPage() {
   const handleOpen = (menu = null) => {
     if (menu) {
       setEditingMenu(menu);
-      setFormData({
-        name: menu.name || "",
-        created_by: menu.created_by || 1
-      });
+      setFormData({ name: menu.name || "" });
     } else {
       setEditingMenu(null);
-      setFormData({ name: "", created_by: 1 });
+      setFormData({ name: "" });
     }
     setOpen(true);
   };
@@ -57,15 +52,12 @@ export default function MenuPage() {
   const handleClose = () => {
     setOpen(false);
     setEditingMenu(null);
-    setFormData({ name: "", created_by: 1 });
+    setFormData({ name: "" });
   };
 
   const handleSave = async () => {
     try {
-      const newData = {
-        name: formData.name,
-        created_by: parseInt(formData.created_by) || 1
-      };
+      const newData = { name: formData.name };
 
       if (editingMenu) {
         await updateMenu(editingMenu.id, newData);
@@ -76,7 +68,7 @@ export default function MenuPage() {
       loadMenus();
       handleClose();
     } catch (error) {
-      console.error("Error menyimpan  menu:", error);
+      console.error("Error menyimpan menu:", error);
     }
   };
 
@@ -91,70 +83,60 @@ export default function MenuPage() {
     }
   };
 
-  const formatDate = (dateString) => {
-    if (!dateString) return "N/A";
-    return new Date(dateString).toLocaleDateString('id-ID', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  };
-
   return (
     <Box p={3}>
-      <Box mb={3}>
-        <Typography variant="h4" component="h1" gutterBottom>
+      {/* Header */}
+      <Box
+        mb={3}
+        sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
+      >
+        <Typography variant="h5" fontWeight="bold">
           Menu Management
         </Typography>
-        <Stack
-          direction="row"
-          justifyContent="flex-end"
-          alignItems="center"
-        >
-          <Button variant="contained" color="primary" onClick={() => handleOpen()}>
-            + New Menu
-          </Button>
-        </Stack>
+        <Button variant="contained" onClick={() => handleOpen()}>
+          + New Menu
+        </Button>
       </Box>
 
+      {/* List Menus */}
       <Stack spacing={2}>
         {menus.map((menu) => (
-          <Card key={menu.id} variant="outlined">
+          <Card
+            key={menu.id}
+            sx={{
+              borderRadius: 2,
+              boxShadow: 2,
+              "&:hover": { boxShadow: 4 },
+              transition: "0.2s",
+            }}
+          >
             <CardContent
-              sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
             >
-              <Box sx={{ flex: 1 }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                  <Typography variant="subtitle1" fontWeight="bold">
-                    {menu.name}
-                  </Typography>
-                  <Chip 
-                    label={`ID: ${menu.id}`} 
-                    size="small" 
-                    color="primary" 
-                    variant="outlined"
-                  />
-                </Box>
-                
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                  <strong>Dibuat:</strong> {formatDate(menu.created_at)}
+              <Box>
+                <Typography variant="subtitle1" fontWeight="bold">
+                  {menu.name}
                 </Typography>
-                
                 <Typography variant="body2" color="text.secondary">
-                  <strong>Dibuat oleh:</strong> User {menu.created_by}
+                  ID: {menu.id}
                 </Typography>
               </Box>
 
               <Box>
+                <IconButton
+                  color="primary"
+                  onClick={() => navigate(`/menu-items/${menu.id}`)}
+                >
+                  <List />
+                </IconButton>
                 <IconButton color="primary" onClick={() => handleOpen(menu)}>
                   <Edit />
                 </IconButton>
-                <IconButton
-                  color="error"
-                  onClick={() => handleDelete(menu.id)}
-                >
+                <IconButton color="error" onClick={() => handleDelete(menu.id)}>
                   <Delete />
                 </IconButton>
               </Box>
@@ -163,16 +145,10 @@ export default function MenuPage() {
         ))}
       </Stack>
 
+      {/* Dialog */}
       <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-        <DialogTitle>
-          {editingMenu ? "Edit Menu" : "New Menu"}
-          {editingMenu && (
-            <Typography variant="body2" color="text.secondary">
-              Menu ID: {editingMenu.id}
-            </Typography>
-          )}
-        </DialogTitle>
-        
+        <DialogTitle>{editingMenu ? "Edit Menu" : "New Menu"}</DialogTitle>
+        <Divider />
         <DialogContent>
           <TextField
             fullWidth
@@ -182,31 +158,11 @@ export default function MenuPage() {
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
           />
-          
-          <TextField
-            fullWidth
-            label="Dibuat Oleh (User ID)"
-            type="number"
-            margin="normal"
-            value={formData.created_by}
-            onChange={(e) => setFormData({ ...formData, created_by: e.target.value })}
-            required
-            inputProps={{ min: 1 }}
-          />
-
-          {editingMenu && (
-            <Box sx={{ mt: 2, p: 2, bgcolor: "grey.100", borderRadius: 1 }}>
-              <Typography variant="body2" color="text.secondary">
-                <strong>Dibuat Oleh:</strong> {formatDate(editingMenu.created_at)}
-              </Typography>
-            </Box>
-          )}
         </DialogContent>
-        
         <DialogActions>
           <Button onClick={handleClose}>Batal</Button>
-          <Button 
-            onClick={handleSave} 
+          <Button
+            onClick={handleSave}
             variant="contained"
             disabled={!formData.name.trim()}
           >
