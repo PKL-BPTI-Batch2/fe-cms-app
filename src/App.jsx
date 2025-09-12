@@ -1,8 +1,8 @@
 import "./App.css";
 import { BrowserRouter ,Routes, Route } from "react-router-dom";
 import Frame from "./components/Sidebar/Frame";
-import Dashboard from "./components/Dashboard/index";
-import Menu from "./components/Menu/index";
+import Dashboard from "./components/Dashboard/Dashboard.jsx";
+import Menu from "./components/Menu/Menu.jsx";
 
 function App() {
   return (

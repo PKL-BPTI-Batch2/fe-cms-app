@@ -15,7 +15,7 @@ import {
   Chip,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
-import { getMenus, addMenu, updateMenu, deleteMenu } from "./../../services/crudmenu.jsx";
+import { getMenus, addMenu, updateMenu, deleteMenu } from "../../services/crudmenu.jsx";
 
 export default function MenuPage() {
   const [menus, setMenus] = useState([]);
