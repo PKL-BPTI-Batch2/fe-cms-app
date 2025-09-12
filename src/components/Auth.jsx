@@ -1,17 +1,18 @@
 import React, {  useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import {Avatar, Box, Button, Container,   IconButton,  InputAdornment,  Paper, TextField, Typography,Alert} from '@mui/material'
 import {  MailLockOutlined, Visibility, VisibilityOff} from '@mui/icons-material'
 import {login, register, forgotPassword,resetPassword } from '../services/auth'
 import { handleApiError,handleApiSuccess } from '../utils/apiHandlers';
 import useAutoClearMessage from '../utils/useAutoClearMessage'
-import { useParams } from 'react-router-dom'
+
 
 
 
 function Auth() {
   const navigate = useNavigate();
-  const {token} = useParams();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token");
   const [action, setAction]= useState("sign in");
   const [showPassword,setShowPassword] = useState(false);
   const [showConfirmPassword,setShowConfirmPassword] = useState(false);
