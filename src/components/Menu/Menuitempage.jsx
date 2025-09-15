@@ -86,7 +86,6 @@ export default function MenuItemsPage() {
 
   return (
     <Box p={3}>
-      {/* Header */}
       <Box
         mb={3}
         sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}

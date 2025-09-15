@@ -85,7 +85,6 @@ export default function MenuPage() {
 
   return (
     <Box p={3}>
-      {/* Header */}
       <Box
         mb={3}
         sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
@@ -98,7 +97,6 @@ export default function MenuPage() {
         </Button>
       </Box>
 
-      {/* List Menus */}
       <Stack spacing={2}>
         {menus.map((menu) => (
           <Card
@@ -145,7 +143,6 @@ export default function MenuPage() {
         ))}
       </Stack>
 
-      {/* Dialog */}
       <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
         <DialogTitle>{editingMenu ? "Edit Menu" : "New Menu"}</DialogTitle>
         <Divider />
