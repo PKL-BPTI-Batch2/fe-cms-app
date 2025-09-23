@@ -84,7 +84,7 @@ export default function MenuPage() {
   };
 
   return (
-    <Box p={3}>
+    <Box p={3}> 
       <Box
         mb={3}
         sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}
