@@ -1,16 +1,24 @@
-import React from "react";
 import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import API from "../services/api";
 
-function ProtectedRoute({ children }) {
-  const token = localStorage.getItem("token");
+export default function ProtectedRoute({ children }) {
+  const [checking, setChecking] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
 
-  // Kalau ga ada token, lempar ke login
-  if (!token) {
-    return <Navigate to="/auth" replace />;
-  }
+  useEffect(() => {
+    API.get("/me") // endpoint cek user di server
+      .then(() => {
+        setIsAuth(true);
+        setChecking(false);
+      })
+      .catch(() => {
+        setIsAuth(false);
+        setChecking(false);
+      });
+  }, []);
 
-  // Kalau ada token, render halaman anak
+  if (checking) return <div>Loading...</div>;
+  if (!isAuth) return <Navigate to="/auth" replace />;
   return children;
 }
-
-export default ProtectedRoute;
