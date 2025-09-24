@@ -2,9 +2,6 @@ import API from './api'
 
 export const login = async ({ email, password }) => {
   const { data } = await API.post("/login"/*contoh*/, { email, password });
-  if (data?.token) {
-    localStorage.setItem("token", data.token);
-  }
   return data;
 };
 
@@ -23,8 +20,13 @@ export const resetPassword = async ({token,password}) => {
   return data;
 }
 
-export const logout = () => {
-  localStorage.removeItem("token");
+export const logout = async ()  => {
+  try {
+  await API.post("/logout")
+  
+  } catch (error) {
+    
+  }
   window.location.href = "/auth";
 };
 
