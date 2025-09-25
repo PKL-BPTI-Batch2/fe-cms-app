@@ -4,10 +4,12 @@ import Frame from "./components/Sidebar/Frame";
 import Dashboard from "./components/Dashboard/index";
 import Auth from "./components/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { AppProvider } from "./components/AppContext";
 
 function App(){
   return(
   <BrowserRouter>
+    <AppProvider>
     <Routes>
       <Route path="/auth/*" element={<Auth/>}/>
 
@@ -18,6 +20,7 @@ function App(){
          }
          />
     </Routes>
+    </AppProvider>
   </BrowserRouter>
   );
 };
