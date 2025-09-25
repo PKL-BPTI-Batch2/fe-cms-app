@@ -21,12 +21,6 @@ export const resetPassword = async ({token,password}) => {
 }
 
 export const logout = async ()  => {
-  try {
-  await API.post("/logout")
-  
-  } catch (error) {
-    
-  }
-  window.location.href = "/auth";
+ return API.post("/logout");
 };
 
