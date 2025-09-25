@@ -1,24 +1,17 @@
-import { Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import API from "../services/api";
+import { useApp } from "./AppContext";
 
 export default function ProtectedRoute({ children }) {
-  const [checking, setChecking] = useState(true);
-  const [isAuth, setIsAuth] = useState(false);
+  const { currentUser, loadingUser } = useApp(); // ambil dari context
 
-  useEffect(() => {
-    API.get("/me") // endpoint cek user di server
-      .then(() => {
-        setIsAuth(true);
-        setChecking(false);
-      })
-      .catch(() => {
-        setIsAuth(false);
-        setChecking(false);
-      });
-  }, []);
+  if (loadingUser) {
+    return <div>Loading…</div>;
+  }
 
-  if (checking) return <div>Loading...</div>;
-  if (!isAuth) return <Navigate to="/auth" replace />;
+  if (!currentUser) {
+    // belum login / token invalid
+    window.location.href = "/auth";
+    return null;
+  }
+
   return children;
 }
