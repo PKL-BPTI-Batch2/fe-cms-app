@@ -5,11 +5,13 @@ import {  MailLockOutlined, Visibility, VisibilityOff} from '@mui/icons-material
 import {login, register, forgotPassword,resetPassword } from '../services/auth'
 import { handleApiError,handleApiSuccess } from '../utils/apiHandlers';
 import useAutoClearMessage from '../utils/useAutoClearMessage'
+import { useApp } from './AppContext'
 
 
 
 
 function Auth() {
+  const {setCurrentUser} = useApp();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
@@ -62,6 +64,7 @@ function Auth() {
           email: formData.email,
           password: formData.password,
         });
+        setCurrentUser(res.user);
         console.log(res);
          navigate("/");
       }else if (action === "sign up") {
