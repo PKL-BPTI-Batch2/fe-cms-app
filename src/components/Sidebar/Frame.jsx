@@ -25,6 +25,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Avatar, Menu,MenuItem, Tooltip } from '@mui/material';
 import { Logout,   Settings } from '@mui/icons-material';
 import {logout} from '../../services/auth';
+import { useApp } from '../AppContext';
 
 
 const drawerWidth = 240;
@@ -97,10 +98,19 @@ export default function Frame({children}) {
   const [open, setOpen] = React.useState(true);
 
   const handleLabel = menuItems.find((item) => item.path === location.pathname);
+  const {setCurrentUser} = useApp();
 
-  const handleLogout = () => {
-    logout();
-  };
+   const handleLogout = async () => {
+    
+  try {
+    const res = await logout();
+    console.log("Logout response:", res.data);
+  } catch(err) {
+    console.error("Logout error:", err);
+  }
+  setCurrentUser(null);
+  window.location.href = "/auth"
+};
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const profile = Boolean(anchorEl);
