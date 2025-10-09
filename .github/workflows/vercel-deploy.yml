@@ -1,0 +1,31 @@
+# Nama workflow ini
+name: Vercel Preview Deployment
+
+# Kapan workflow ini akan dijalankan
+# Yaitu setiap kali ada Pull Request dibuka atau diperbarui
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+# Job yang akan dijalankan
+jobs:
+  deploy-preview:
+    # Environment tempat job ini dijalankan
+    runs-on: ubuntu-latest
+
+    # Langkah-langkah yang akan dijalankan dalam job ini
+    steps:
+      # Langkah 1: Checkout kode dari repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Langkah 2: Deploy ke Vercel untuk preview
+      - name: Deploy to Vercel
+        uses: vercel/actions/deploy-pull-request@v1
+        with:
+          # ID organisasi/tim Vercel
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          # ID proyek di Vercel
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          # Token Vercel untuk otentikasi
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
