@@ -26,18 +26,19 @@ export default function MenuItemsPage() {
   const [editingItem, setEditingItem] = useState(null);
   const [formData, setFormData] = useState({ title: "", url: "" });
 
+  
   useEffect(() => {
-    loadItems();
-  }, []);
+    const loadItems = async () => {
+      try {
+        const data = await getMenuItems(menuId);
+        setItems(data);
+      } catch (error) {
+        console.error("Error loading items:", error);
+      }
+    };
 
-  const loadItems = async () => {
-    try {
-      const data = await getMenuItems(menuId);
-      setItems(data);
-    } catch (error) {
-      console.error("Error loading items:", error);
-    }
-  };
+    loadItems();
+  }, [menuId]); 
 
   const handleOpen = (item = null) => {
     if (item) {
@@ -66,7 +67,8 @@ export default function MenuItemsPage() {
         await addMenuItem(newData);
       }
 
-      loadItems();
+      const updatedData = await getMenuItems(menuId);
+      setItems(updatedData);
       handleClose();
     } catch (error) {
       console.error("Error menyimpan item:", error);
@@ -77,7 +79,8 @@ export default function MenuItemsPage() {
     if (window.confirm("Apakah kamu ingin menghapus item ini?")) {
       try {
         await deleteMenuItem(id);
-        loadItems();
+        const updatedData = await getMenuItems(menuId);
+        setItems(updatedData);
       } catch (error) {
         console.error("Error menghapus item:", error);
       }

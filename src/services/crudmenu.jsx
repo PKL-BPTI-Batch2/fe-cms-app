@@ -8,15 +8,15 @@ export const getMenus = async () => {
 };
 
 export const addMenu = async (menu) => {
-  const res = await axios.post(API_URL, menu);
+  const res = await axios.post(`${API_URL}/insert`, menu); // Tambah /insert
   return res.data;
 };
 
 export const updateMenu = async (id, menu) => {
-  const res = await axios.put(`${API_URL}/${id}`, menu);
+  const res = await axios.put(`${API_URL}/update/${id}`, menu); // Tambah /update
   return res.data;
 };
 
 export const deleteMenu = async (id) => {
-  await axios.delete(`${API_URL}/${id}`);
+  await axios.delete(`${API_URL}/delete/${id}`); // Tambah /delete
 };
