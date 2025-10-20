@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard/index";
 import Auth from "./components/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AppProvider } from "./components/AppContext";
+import News from "./components/News/News";
 
 function App(){
   return(
@@ -30,6 +31,7 @@ function FrameLayout() {
         <Frame>
             <Routes>
              <Route path="/" element={<Dashboard />} />
+             <Route path="/news" element={<News />} />
             </Routes>
         </Frame>
    
