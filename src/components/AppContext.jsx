@@ -10,6 +10,7 @@ export const AppProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true); // indikator loading profil
   const [newsRows, setNewsRows] = useState([]);
+  const [userRows, setUserRows] = useState([]);
 
   useEffect(() => {
     // skip fetch kalau sedang di halaman /auth
@@ -21,7 +22,7 @@ export const AppProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
         // endpoint ini harus balikin data user berdasarkan cookie token
-        const { data } = await API.get('user/me'); 
+        const { data } = await API.get('/me'); 
         setCurrentUser(data);
       } catch (err) {
         // kalau belum login / token expired
@@ -42,6 +43,8 @@ export const AppProvider = ({ children }) => {
         loadingUser, 
         newsRows,
         setNewsRows,
+        userRows,
+        setUserRows,
       }}
     >
       {children}

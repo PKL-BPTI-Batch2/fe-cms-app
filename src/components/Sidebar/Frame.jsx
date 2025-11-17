@@ -87,7 +87,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const menuItems = [
   {path: "/", label: "Dashboard", icon: <HomeIcon sx={{color:'#fff'}}/>},
   {path: "/news", label: "News", icon:<ArticleIcon sx={{color:'#fff'}}/> },
-  {path: "/pages", label: "Pages", icon: <LayersIcon sx={{color:'#fff'}}/>},
   {path: "/menus", label: "Menus", icon: <MenuBookIcon sx={{color:'#fff'}}/>},
   {path: "/media-library", label: "Media Library", icon: <PermMediaIcon sx={{color:'#fff'}}/>},
   {path: "/users", label: "Users", icon: <PeopleIcon sx={{color:'#fff'}}/>},
