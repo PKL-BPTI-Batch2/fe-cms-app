@@ -9,6 +9,8 @@ export const AppProvider = ({ children }) => {
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true); // indikator loading profil
+  const [newsRows, setNewsRows] = useState([]);
+  const [userRows, setUserRows] = useState([]);
 
   useEffect(() => {
     // skip fetch kalau sedang di halaman /auth
@@ -39,6 +41,10 @@ export const AppProvider = ({ children }) => {
         currentUser,
         setCurrentUser,
         loadingUser, 
+        newsRows,
+        setNewsRows,
+        userRows,
+        setUserRows,
       }}
     >
       {children}
