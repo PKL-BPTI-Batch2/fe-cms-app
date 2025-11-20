@@ -22,7 +22,7 @@ export const AppProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
         // endpoint ini harus balikin data user berdasarkan cookie token
-        const { data } = await API.get('/user/me'); 
+        const { data } = await API.get('/me'); 
         setCurrentUser(data);
       } catch (err) {
         // kalau belum login / token expired

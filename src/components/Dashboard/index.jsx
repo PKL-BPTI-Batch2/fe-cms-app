@@ -11,26 +11,18 @@ function Dashboard() {
   const [activity, setActivity] = useState([]);
 
   useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const res = await axios.get("http://127.0.0.1:3000/api/stats");
-        setStats(res.data);
-      } catch (err) {
-        console.log("Gagal ambil stats:", err);
-      }
-    };
-
-    const fetchActivity = async () => {
+    const fetchData = async () => {
       try {
         const res = await axios.get("http://127.0.0.1:3000/api/activity/recent");
-        setActivity(res.data);
+
+        setStats(res.data.stats || {});
+        setActivity(res.data.recentActivity || []);
       } catch (err) {
-        console.log("Gagal ambil aktivitas:", err);
+        console.log("Gagal ambil data dashboard:", err);
       }
     };
 
-    fetchStats();
-    fetchActivity();
+    fetchData();
   }, []);
 
   return (
