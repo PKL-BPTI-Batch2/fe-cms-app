@@ -11,7 +11,7 @@ export default function UpdateNewsDialog({ open, data, onClose, onUpdated }) {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [status, setStatus] = useState('Draft');
+  const [status, setStatus] = useState('draft');
   const [author, setAuthor] = useState('');
 
   // Ambil detail berita saat dialog dibuka
@@ -24,9 +24,10 @@ export default function UpdateNewsDialog({ open, data, onClose, onUpdated }) {
           setNews(res.data);
           setTitle(res.data.title || '');
           setContent(res.data.content || '');
-          setStatus(res.data.status || 'Draft');
+          setStatus(res.data.status || 'draft');
           setAuthor(res.data.author);
         }
+        console.log(data);
       });
     }
   }, [open, data]);
@@ -74,9 +75,9 @@ export default function UpdateNewsDialog({ open, data, onClose, onUpdated }) {
         value={status}
         onChange={(e) => setStatus(e.target.value)}
       >
-        <MenuItem value="Draft">Draft</MenuItem>
-        <MenuItem value="Published">Published</MenuItem>
+        <MenuItem value="draft">Draft</MenuItem>
+        <MenuItem value="published">Published</MenuItem>
       </FormField>
     </FormDialog>
-  );
+);
 }
