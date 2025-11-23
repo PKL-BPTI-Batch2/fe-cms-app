@@ -69,7 +69,7 @@ export default function MediaLibrary() {
     await uploadMedia(formData);
     
     console.log("✅ Upload success");
-    await fetchMedia(); // Refresh list
+    await fetchMedia(); 
     
   } catch (err) {
     console.error("❌ Upload error:", err.response?.data);
@@ -152,7 +152,6 @@ export default function MediaLibrary() {
         </Card>
       )}
 
-      {/* Preview Dialog */}
       <Dialog open={openPreview} onClose={() => setOpenPreview(false)} maxWidth="md" fullWidth>
         <DialogTitle>Preview: {previewFile?.filename}</DialogTitle>
         <DialogContent dividers>

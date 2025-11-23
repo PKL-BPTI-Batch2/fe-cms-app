@@ -3,27 +3,30 @@ import API from "../api";
 export const getMenuItems = async (menuId) => {
   try {
     const res = await API.get("/menu-item/");
-    
+
+    const items = Array.isArray(res.data) ? res.data : [];
+
     if (menuId) {
-      // Filter items by menu_id
-      const filtered = res.data.filter(item => item.menu_id === parseInt(menuId));
+      const filtered = items.filter(
+        (item) => item.menu_id === Number(menuId)
+      );
       return filtered;
     }
-    
-    return res.data;
+
+    return items;
   } catch (error) {
     console.error("Error fetching menu items:", error);
-    throw error;
+    return []; 
   }
 };
 
 export const getMenuItemById = async (id) => {
   try {
-    const res = await API.get(`/${id}`);
+    const res = await API.get(`/menu-item/${id}`);
     return res.data;
   } catch (error) {
     console.error("Error fetching menu item:", error);
-    throw error;
+    return null;
   }
 };
 

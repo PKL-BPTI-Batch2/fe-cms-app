@@ -18,10 +18,10 @@ import {
 } from "@mui/material";
 import { Edit, Delete, ArrowBack } from "@mui/icons-material";
 import { useParams, useNavigate } from "react-router-dom";
-import { getMenuItems, addMenuItem, updateMenuItem, deleteMenuItem } from "../../services/CrudMenu&MenuItem/CrudMenuItem.jsx";
+import { getMenuItems, addMenuItem, updateMenuItem, deleteMenuItem } from "../../services/CrudMenuMenuItem/crudmenuitem.jsx";
 
 export default function MenuItemsPage() {
-  const { id: menuId } = useParams(); // Ambil id dari URL params
+  const { id: menuId } = useParams(); 
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [open, setOpen] = useState(false);
@@ -86,12 +86,9 @@ export default function MenuItemsPage() {
       const newData = { 
         title: formData.title.trim(), 
         url: formData.url.trim() || null,
-        menu_id: parseInt(menuId), // Pastikan menu_id dikirim
+        menu_id: parseInt(menuId), 
         order_int: parseInt(formData.order_int) || 0,
       };
-
-      // Jangan kirim page_id dan parent_id jika tidak ada
-      // Biarkan backend handle default value
 
       if (editingItem) {
         await updateMenuItem(editingItem.id, newData);
@@ -104,7 +101,6 @@ export default function MenuItemsPage() {
       loadItems();
       handleClose();
       
-      // Clear success message setelah 3 detik
       setTimeout(() => setSuccess(null), 3000);
     } catch (error) {
       console.error("Error menyimpan item:", error);
@@ -123,7 +119,6 @@ export default function MenuItemsPage() {
         setSuccess("Item berhasil dihapus");
         loadItems();
         
-        // Clear success message setelah 3 detik
         setTimeout(() => setSuccess(null), 3000);
       } catch (error) {
         console.error("Error menghapus item:", error);

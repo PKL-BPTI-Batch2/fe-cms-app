@@ -5,6 +5,11 @@ import Dashboard from "./components/Dashboard/index";
 import Auth from "./components/Auth";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AppProvider } from "./components/AppContext";
+import News from "./components/News/News";
+import Users from "./components/Users/Users";
+import Menu from "./components/Menu&MenuItem/Menu.jsx";
+import MenuItemsPage from "./components/Menu&MenuItem/Menuitempage.jsx";
+import Media from "./components/MediaDanMediaItem/Media.jsx";
 
 function App() {
   return (
@@ -32,6 +37,11 @@ function FrameLayout() {
         <Frame>
             <Routes>
              <Route path="/" element={<Dashboard />} />
+              <Route path="/menus" element={<Menu />} />
+              <Route path="/menu-item/:id" element={<MenuItemsPage />} />
+              <Route path="/media-library" element={<Media />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/users" element={<Users />} />
             </Routes>
         </Frame>
    

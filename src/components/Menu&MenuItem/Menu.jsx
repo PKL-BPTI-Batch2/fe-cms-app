@@ -17,7 +17,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { Edit, Delete, List } from "@mui/icons-material";
-import { getMenus, addMenu, updateMenu, deleteMenu } from "../../services/CrudMenu&MenuItem/CrudMenu.jsx";
+import { getMenus, addMenu, updateMenu, deleteMenu } from "../../services/CrudMenuMenuItem/crudmenu.jsx";
 import { useNavigate } from "react-router-dom";
 
 export default function MenuPage() {
@@ -87,7 +87,6 @@ export default function MenuPage() {
       loadMenus();
       handleClose();
       
-      // Clear success message setelah 3 detik
       setTimeout(() => setSuccess(null), 3000);
     } catch (error) {
       console.error("Error menyimpan menu:", error);
@@ -106,7 +105,6 @@ export default function MenuPage() {
         setSuccess("Menu berhasil dihapus");
         loadMenus();
         
-        // Clear success message setelah 3 detik
         setTimeout(() => setSuccess(null), 3000);
       } catch (error) {
         console.error("Error menghapus menu:", error);
@@ -172,7 +170,6 @@ export default function MenuPage() {
                   <IconButton
                     color="primary"
                     onClick={() => navigate(`/menu-item/${menu.id}`)}
-                    // disabled={loading}
                   >
                     <List />
                   </IconButton>
