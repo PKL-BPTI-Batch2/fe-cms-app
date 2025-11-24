@@ -7,9 +7,9 @@ export const addUser = async (userData) => {
     const { data } = await API.post('/createUser', userData);
 
     const newRow = {
-      id: data.id,
-      name: data.username,
-      role: data.role,
+      id: data.user.id,
+      name: data.user.username,
+      role: data.user.role,
     };
 
     return {

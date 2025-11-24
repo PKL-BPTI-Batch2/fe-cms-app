@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../../services/api";
 
 function Dashboard() {
   const [stats, setStats] = useState({
@@ -35,6 +35,7 @@ function Dashboard() {
   const getDefaultDetails = (actionType) => {
     switch(actionType) {
       case 'LOGIN': return 'User login';
+      case 'LOGOUT': return 'User logout';
       case 'REGISTER': return 'User mendaftar';
       case 'CREATE_NEWS': return 'User membuat berita baru';
       case 'UPDATE_NEWS': return 'User memperbarui berita';
@@ -60,6 +61,7 @@ function Dashboard() {
       case 'CREATE_MENU': return 'bg-indigo-100 text-indigo-800';
       case 'UPDATE_MENU': return 'bg-orange-100 text-orange-800';
       case 'DELETE_MENU': return 'bg-red-100 text-red-800';
+      case 'LOGOUT': return 'bg-red-100 text-red-800';
       case 'UPLOAD_MEDIA': return 'bg-teal-100 text-teal-800';
       case 'DELETE_MEDIA': return 'bg-red-100 text-red-800';
       case 'UPDATE_PROFILE': return 'bg-cyan-100 text-cyan-800';
@@ -75,8 +77,8 @@ function Dashboard() {
         setError(null);
         
         const [statsRes, activityRes] = await Promise.all([
-          axios.get("http://127.0.0.1:3000/api/totals"),
-          axios.get("http://127.0.0.1:3000/api/recent")
+          API.get("/totals"),
+          API.get("/recent")
         ]);
 
         console.log("Stats data:", statsRes.data);

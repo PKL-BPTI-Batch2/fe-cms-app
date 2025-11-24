@@ -7,7 +7,7 @@ export default function AddUserDialog({ open, onClose, onSave, currentUser }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("User");
+  const [role, setRole] = useState("user");
 
   const handleSave = () => {
     const newData = {
@@ -23,7 +23,7 @@ export default function AddUserDialog({ open, onClose, onSave, currentUser }) {
     setUsername("");
     setEmail("");
     setPassword("");
-    setRole("User");
+    setRole("user");
     onClose();
   };
 
@@ -55,8 +55,9 @@ export default function AddUserDialog({ open, onClose, onSave, currentUser }) {
         value={role}
         onChange={(e) => setRole(e.target.value)}
       >
-        <MenuItem value="Admin">Admin</MenuItem>
-        <MenuItem value="User">User</MenuItem>
+        <MenuItem value="user">User</MenuItem>
+        <MenuItem value="admin">Admin</MenuItem>
+        <MenuItem value="editor">editor</MenuItem>
       </FormField>
 
       <FormField

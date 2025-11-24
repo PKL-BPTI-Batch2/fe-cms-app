@@ -66,8 +66,9 @@ export default function UpdateUserDialog({ open, userId, onClose, onUpdate }) {
         onChange={(e) => setPassword(e.target.value)}
       />
       <FormField label="Role" select value={role} onChange={(e) => setRole(e.target.value)}>
-        <MenuItem value="admin">Admin</MenuItem>
         <MenuItem value="user">User</MenuItem>
+        <MenuItem value="admin">Admin</MenuItem>
+        <MenuItem value="editor">Editor</MenuItem>
       </FormField>
     </FormDialog>
   );
